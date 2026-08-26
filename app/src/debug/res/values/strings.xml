@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_launcher_name">Calendar_debug</string>
+    <!-- keeps the fork distinguishable from an upstream build installed side by side -->
+    <string name="app_launcher_name">Calendar (JP)</string>
 </resources>

@@ -16,6 +16,7 @@ import android.content.pm.ActivityInfo
 import android.content.res.Resources
 import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.MediaScannerConnection
@@ -62,6 +63,7 @@ import org.fossify.calendar.helpers.REMINDER_NOTIFICATION
 import org.fossify.calendar.helpers.REMINDER_OFF
 import org.fossify.calendar.helpers.SCHEDULE_CALDAV_REQUEST_CODE
 import org.fossify.calendar.helpers.WEEK
+import org.fossify.calendar.helpers.WEEKEND_BACKGROUND_ALPHA
 import org.fossify.calendar.helpers.YEAR
 import org.fossify.calendar.helpers.generateImportId
 import org.fossify.calendar.helpers.getActivityToOpen
@@ -1057,17 +1059,32 @@ fun Context.getProperDayIndexInWeek(date: DateTime): Int {
     return dayIndex
 }
 
-fun Context.isWeekendIndex(dayIndex: Int): Boolean {
+// dayIndex is the column of the grid, so which weekday it lands on depends on where the week starts
+fun Context.getDayOfWeekFromIndex(dayIndex: Int): Int {
     val firstDayOfWeek = config.firstDayOfWeek
     val shiftedIndex = (dayIndex + firstDayOfWeek) % 7
-    val dayOfWeek = if (shiftedIndex == 0) {
+    return if (shiftedIndex == 0) {
         DateTimeConstants.SUNDAY
     } else {
         shiftedIndex
     }
-
-    return isWeekend(dayOfWeek)
 }
+
+fun Context.isWeekendIndex(dayIndex: Int) = isWeekend(getDayOfWeekFromIndex(dayIndex))
+
+// null means "leave the colour alone": either a weekday, or the highlight is turned off
+fun Context.getWeekendTextColor(dayOfWeek: Int): Int? = when {
+    !config.highlightWeekends -> null
+    dayOfWeek == DateTimeConstants.SATURDAY -> config.highlightSaturdayColor
+    dayOfWeek == DateTimeConstants.SUNDAY -> config.highlightSundayColor
+    else -> null
+}
+
+fun Context.getWeekendTextColorByIndex(dayIndex: Int) =
+    getWeekendTextColor(getDayOfWeekFromIndex(dayIndex))
+
+fun Context.getWeekendBackgroundColorByIndex(dayIndex: Int) =
+    getWeekendTextColorByIndex(dayIndex)?.adjustAlpha(WEEKEND_BACKGROUND_ALPHA) ?: Color.TRANSPARENT
 
 fun Context.isTaskCompleted(event: Event): Boolean {
     if (event.id == null) return false

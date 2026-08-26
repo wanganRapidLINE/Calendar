@@ -142,15 +142,14 @@ class MyWidgetMonthlyProvider : AppWidgetProvider() {
         val titleShownForKey = mutableSetOf<Pair<Long, Long>>()
         for (i in days.indices) {
             val day = days[i]
-            val dayTextColor = if (context.config.highlightWeekends && day.isWeekend) {
-                context.config.highlightWeekendsColor
-            } else {
-                textColor
-            }
+            val dayColumn = i % 7
+            val dayTextColor = context.getWeekendTextColorByIndex(dayColumn) ?: textColor
             val weakTextColor = dayTextColor.adjustAlpha(MEDIUM_ALPHA)
             val currTextColor = if (day.isThisMonth) dayTextColor else weakTextColor
             val id = res.getIdentifier("day_$i", "id", packageName)
             views.removeAllViews(id)
+            // set this on every cell, otherwise a tint lingers when the setting is turned off
+            views.setInt(id, "setBackgroundColor", context.getWeekendBackgroundColorByIndex(dayColumn))
             addDayNumber(context, views, day, currTextColor, id)
             setupDayOpenIntent(context, views, id, day.code)
 
@@ -311,11 +310,7 @@ class MyWidgetMonthlyProvider : AppWidgetProvider() {
 
         for (i in 0..6) {
             val id = resources.getIdentifier("label_$i", "id", packageName)
-            val dayTextColor = if (context.config.highlightWeekends && context.isWeekendIndex(i)) {
-                context.config.highlightWeekendsColor
-            } else {
-                textColor
-            }
+            val dayTextColor = context.getWeekendTextColorByIndex(i) ?: textColor
 
             views.setTextColor(id, dayTextColor)
             views.setTextSize(id, smallerFontSize)

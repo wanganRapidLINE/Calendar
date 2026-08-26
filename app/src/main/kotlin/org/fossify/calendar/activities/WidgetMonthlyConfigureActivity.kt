@@ -16,7 +16,8 @@ import org.fossify.calendar.databinding.TopNavigationBinding
 import org.fossify.calendar.databinding.WidgetConfigMonthlyBinding
 import org.fossify.calendar.extensions.addDayEvents
 import org.fossify.calendar.extensions.config
-import org.fossify.calendar.extensions.isWeekendIndex
+import org.fossify.calendar.extensions.getWeekendBackgroundColorByIndex
+import org.fossify.calendar.extensions.getWeekendTextColorByIndex
 import org.fossify.calendar.helpers.MonthlyCalendarImpl
 import org.fossify.calendar.helpers.MyWidgetMonthlyProvider
 import org.fossify.calendar.interfaces.MonthlyCalendar
@@ -224,13 +225,11 @@ class WidgetMonthlyConfigureActivity : SimpleActivity(), MonthlyCalendar {
 
             for (i in 0 until daysLength) {
                 val day = mDays!![i]
-                val dayTextColor = if (config.highlightWeekends && day.isWeekend) {
-                    config.highlightWeekendsColor
-                } else {
-                    mTextColor
-                }
+                val dayColumn = i % 7
+                val dayTextColor = getWeekendTextColorByIndex(dayColumn) ?: mTextColor
 
                 dayViews[i].apply {
+                    setBackgroundColor(getWeekendBackgroundColorByIndex(dayColumn))
                     removeAllViews()
                     addDayNumber(dayTextColor, day, this)
                     context.addDayEvents(day, this, resources, dividerMargin)
@@ -279,16 +278,9 @@ class WidgetMonthlyConfigureActivity : SimpleActivity(), MonthlyCalendar {
     }
 
     private fun updateLabels() {
-        val weekendsTextColor = config.highlightWeekendsColor
         binding.configCalendar.firstRow.apply {
             arrayOf(label0, label1, label2, label3, label4, label5, label6).forEachIndexed { index, textView ->
-                val textColor = if (config.highlightWeekends && isWeekendIndex(index)) {
-                    weekendsTextColor
-                } else {
-                    mTextColor
-                }
-
-                textView.setTextColor(textColor)
+                textView.setTextColor(getWeekendTextColorByIndex(index) ?: mTextColor)
             }
         }
     }
