@@ -19,7 +19,6 @@ import org.fossify.calendar.models.Event
 import org.fossify.commons.extensions.*
 import org.fossify.commons.helpers.MEDIUM_ALPHA
 import org.joda.time.DateTime
-import org.joda.time.DateTimeConstants
 
 class MyWidgetMonthlyProvider : AppWidgetProvider() {
     private val PREV = "prev"
@@ -302,25 +301,15 @@ class MyWidgetMonthlyProvider : AppWidgetProvider() {
     }
 
     private fun updateDayLabels(context: Context, views: RemoteViews, resources: Resources, textColor: Int) {
-        val config = context.config
-        val firstDayOfWeek = config.firstDayOfWeek
         val smallerFontSize = context.getWidgetFontSize()
         val packageName = context.packageName
-        val letters = context.resources.getStringArray(org.fossify.commons.R.array.week_days_short)
+        val letters = context.getWeekDayLetters()
 
         for (i in 0..6) {
             val id = resources.getIdentifier("label_$i", "id", packageName)
-            val dayTextColor = context.getWeekendTextColorByIndex(i) ?: textColor
-
-            views.setTextColor(id, dayTextColor)
+            views.setTextColor(id, context.getWeekendTextColorByIndex(i) ?: textColor)
             views.setTextSize(id, smallerFontSize)
-
-            var index = i
-            if (firstDayOfWeek != DateTimeConstants.MONDAY) {
-                index = (index + firstDayOfWeek - 1) % 7
-            }
-
-            views.setText(id, letters[index])
+            views.setText(id, letters[i])
         }
     }
 }
