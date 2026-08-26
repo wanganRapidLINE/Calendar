@@ -1,3 +1,24 @@
+> ## About this fork
+>
+> This is a personal fork of [FossifyOrg/Calendar](https://github.com/FossifyOrg/Calendar) that gives
+> Saturday and Sunday the Japanese-calendar treatment: a blue Saturday and a red Sunday, tinted
+> across the whole column rather than only on the day number.
+>
+> ### Changes made in this fork
+>
+> - The single "Color of highlighted weekends" setting is split into **Saturday color** and **Sunday
+>   color**, each with its own colour picker. Existing installs keep their old colour as the Sunday
+>   colour; Saturday defaults to blue.
+> - The monthly view and the monthly widget paint a faint tint (15% of the chosen colour) behind the
+>   whole Saturday and Sunday column. The tint is derived from the picked colour rather than
+>   hard-coded, so it stays readable in both the light and the dark theme.
+> - The weekly view, the yearly view and the widget configuration preview follow the same
+>   per-weekday colours, so nothing is left using a single shared weekend colour.
+> - Debug builds are labelled `Calendar (JP)` so the fork can be installed alongside an upstream build.
+>
+> Everything else is unchanged. Like the original, this fork is licensed under the
+> [GNU General Public License v3.0](LICENSE).
+
 # Fossify Calendar
 <img alt="Logo" src="graphics/icon.webp" width="120" />
 
