@@ -181,7 +181,8 @@
     <string name="last_used_one">最後に使用したもの</string>
     <string name="other_time">その他の時刻</string>
     <string name="highlight_weekends">一部の表示で週末を強調</string>
-    <string name="highlight_weekends_color">週末の強調色</string>
+    <string name="highlight_saturday_color">土曜日の色</string>
+    <string name="highlight_sunday_color">日曜日の色</string>
     <string name="allow_changing_time_zones">予定のタイムゾーンの変更を許可</string>
     <string name="manage_quick_filter_event_types">カレンダーをクイックフィルターで管理</string>
     <string name="allow_creating_tasks">タスクの作成を許可</string>

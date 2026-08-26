@@ -6,6 +6,8 @@ import android.content.Intent
 import android.media.AudioManager
 import android.media.RingtoneManager
 import android.os.Bundle
+import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
@@ -43,8 +45,9 @@ import org.fossify.calendar.helpers.DISPLAY_DESCRIPTION
 import org.fossify.calendar.helpers.DISPLAY_PAST_EVENTS
 import org.fossify.calendar.helpers.EVENTS_LIST_VIEW
 import org.fossify.calendar.helpers.Formatter
+import org.fossify.calendar.helpers.HIGHLIGHT_SATURDAY_COLOR
+import org.fossify.calendar.helpers.HIGHLIGHT_SUNDAY_COLOR
 import org.fossify.calendar.helpers.HIGHLIGHT_WEEKENDS
-import org.fossify.calendar.helpers.HIGHLIGHT_WEEKENDS_COLOR
 import org.fossify.calendar.helpers.IcsExporter
 import org.fossify.calendar.helpers.LAST_EVENT_REMINDER_MINUTES
 import org.fossify.calendar.helpers.LAST_EVENT_REMINDER_MINUTES_2
@@ -188,7 +191,7 @@ class SettingsActivity : SimpleActivity() {
         setupAllowCreatingTasks()
         setupStartWeekOn()
         setupHighlightWeekends()
-        setupHighlightWeekendsColor()
+        setupHighlightWeekendColors()
         setupDeleteAllEvents()
         setupDisplayDescription()
         setupReplaceDescription()
@@ -510,30 +513,49 @@ class SettingsActivity : SimpleActivity() {
 
     private fun setupHighlightWeekends() = binding.apply {
         settingsHighlightWeekends.isChecked = config.highlightWeekends
-        settingsHighlightWeekendsColorHolder.beVisibleIf(config.highlightWeekends)
+        updateWeekendColorPickersVisibility()
         settingsHighlightWeekendsHolder.setOnClickListener {
             settingsHighlightWeekends.toggle()
             config.highlightWeekends = settingsHighlightWeekends.isChecked
-            settingsHighlightWeekendsColorHolder.beVisibleIf(config.highlightWeekends)
+            updateWeekendColorPickersVisibility()
         }
     }
 
-    private fun setupHighlightWeekendsColor() = binding.apply {
-        settingsHighlightWeekendsColor.setFillWithStroke(
-            config.highlightWeekendsColor,
-            getProperBackgroundColor()
+    private fun updateWeekendColorPickersVisibility() = binding.apply {
+        settingsHighlightSaturdayColorHolder.beVisibleIf(config.highlightWeekends)
+        settingsHighlightSundayColorHolder.beVisibleIf(config.highlightWeekends)
+    }
+
+    private fun setupHighlightWeekendColors() = binding.apply {
+        setupWeekendColorPicker(
+            colorSample = settingsHighlightSaturdayColor,
+            colorHolder = settingsHighlightSaturdayColorHolder,
+            getColor = { config.highlightSaturdayColor },
+            setColor = { config.highlightSaturdayColor = it }
         )
-        settingsHighlightWeekendsColorHolder.setOnClickListener {
+        setupWeekendColorPicker(
+            colorSample = settingsHighlightSundayColor,
+            colorHolder = settingsHighlightSundayColorHolder,
+            getColor = { config.highlightSundayColor },
+            setColor = { config.highlightSundayColor = it }
+        )
+    }
+
+    private fun setupWeekendColorPicker(
+        colorSample: ImageView,
+        colorHolder: View,
+        getColor: () -> Int,
+        setColor: (Int) -> Unit
+    ) {
+        colorSample.setFillWithStroke(getColor(), getProperBackgroundColor())
+        colorHolder.setOnClickListener {
             ColorPickerDialog(
                 activity = this@SettingsActivity,
-                color = config.highlightWeekendsColor
+                color = getColor()
             ) { wasPositivePressed, color ->
                 if (wasPositivePressed) {
-                    config.highlightWeekendsColor = color
-                    settingsHighlightWeekendsColor.setFillWithStroke(
-                        color,
-                        getProperBackgroundColor()
-                    )
+                    setColor(color)
+                    colorSample.setFillWithStroke(color, getProperBackgroundColor())
                 }
             }
         }
@@ -1155,7 +1177,8 @@ class SettingsActivity : SimpleActivity() {
                 put(USE_24_HOUR_FORMAT, config.use24HourFormat)
                 put(FIRST_DAY_OF_WEEK, config.firstDayOfWeek)
                 put(HIGHLIGHT_WEEKENDS, config.highlightWeekends)
-                put(HIGHLIGHT_WEEKENDS_COLOR, config.highlightWeekendsColor)
+                put(HIGHLIGHT_SATURDAY_COLOR, config.highlightSaturdayColor)
+                put(HIGHLIGHT_SUNDAY_COLOR, config.highlightSundayColor)
                 put(ALLOW_CREATING_TASKS, config.allowCreatingTasks)
             }
 
@@ -1271,7 +1294,8 @@ class SettingsActivity : SimpleActivity() {
                 SUNDAY_FIRST -> config.firstDayOfWeek = DateTimeConstants.SUNDAY
                 FIRST_DAY_OF_WEEK -> config.firstDayOfWeek = value.toInt()
                 HIGHLIGHT_WEEKENDS -> config.highlightWeekends = value.toBoolean()
-                HIGHLIGHT_WEEKENDS_COLOR -> config.highlightWeekendsColor = value.toInt()
+                HIGHLIGHT_SATURDAY_COLOR -> config.highlightSaturdayColor = value.toInt()
+                HIGHLIGHT_SUNDAY_COLOR -> config.highlightSundayColor = value.toInt()
                 ALLOW_CREATING_TASKS -> config.allowCreatingTasks = value.toBoolean()
             }
         }

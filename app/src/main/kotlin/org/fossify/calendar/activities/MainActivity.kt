@@ -161,7 +161,8 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var mStoredDimCompletedTasks = true
     private var mStoredHighlightWeekends = false
     private var mStoredStartWeekWithCurrentDay = false
-    private var mStoredHighlightWeekendsColor = 0
+    private var mStoredHighlightSaturdayColor = 0
+    private var mStoredHighlightSundayColor = 0
 
     // search results have endless scrolling, so reaching the top/bottom fetches further results
     private var minFetchedSearchTS = 0L
@@ -256,7 +257,9 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         super.onResume()
         if (mStoredTextColor != getProperTextColor() || mStoredBackgroundColor != getProperBackgroundColor() || mStoredPrimaryColor != getProperPrimaryColor()
             || mStoredDayCode != Formatter.getTodayCode() || mStoredDimPastEvents != config.dimPastEvents || mStoredDimCompletedTasks != config.dimCompletedTasks
-            || mStoredHighlightWeekends != config.highlightWeekends || mStoredHighlightWeekendsColor != config.highlightWeekendsColor
+            || mStoredHighlightWeekends != config.highlightWeekends
+            || mStoredHighlightSaturdayColor != config.highlightSaturdayColor
+            || mStoredHighlightSundayColor != config.highlightSundayColor
         ) {
             updateViewPager()
         }
@@ -412,7 +415,8 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             mStoredDimPastEvents = dimPastEvents
             mStoredDimCompletedTasks = dimCompletedTasks
             mStoredHighlightWeekends = highlightWeekends
-            mStoredHighlightWeekendsColor = highlightWeekendsColor
+            mStoredHighlightSaturdayColor = highlightSaturdayColor
+            mStoredHighlightSundayColor = highlightSundayColor
             mStoredMidnightSpan = showMidnightSpanningEventsAtTop
             mStoredStartWeekWithCurrentDay = startWeekWithCurrentDay
         }

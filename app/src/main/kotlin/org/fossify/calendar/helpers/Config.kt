@@ -285,14 +285,30 @@ class Config(context: Context) : BaseConfig(context) {
         set(weeklyViewDays) = prefs.edit().putInt(WEEKLY_VIEW_DAYS, weeklyViewDays).apply()
 
     var highlightWeekends: Boolean
-        get() = prefs.getBoolean(HIGHLIGHT_WEEKENDS, false)
+        // on by default in this fork - colouring the weekend is the whole point of it
+        get() = prefs.getBoolean(HIGHLIGHT_WEEKENDS, true)
         set(highlightWeekends) = prefs.edit().putBoolean(HIGHLIGHT_WEEKENDS, highlightWeekends)
             .apply()
 
-    var highlightWeekendsColor: Int
-        get() = prefs.getInt(HIGHLIGHT_WEEKENDS_COLOR, context.resources.getColor(R.color.red_text))
-        set(highlightWeekendsColor) = prefs.edit()
-            .putInt(HIGHLIGHT_WEEKENDS_COLOR, highlightWeekendsColor).apply()
+    var highlightSaturdayColor: Int
+        get() = prefs.getInt(
+            HIGHLIGHT_SATURDAY_COLOR,
+            context.resources.getColor(R.color.default_saturday_color)
+        )
+        set(highlightSaturdayColor) = prefs.edit()
+            .putInt(HIGHLIGHT_SATURDAY_COLOR, highlightSaturdayColor).apply()
+
+    // falls back to the old single weekend color so upgrades keep whatever was picked before
+    var highlightSundayColor: Int
+        get() = prefs.getInt(
+            HIGHLIGHT_SUNDAY_COLOR,
+            prefs.getInt(
+                HIGHLIGHT_WEEKENDS_COLOR,
+                context.resources.getColor(R.color.default_sunday_color)
+            )
+        )
+        set(highlightSundayColor) = prefs.edit()
+            .putInt(HIGHLIGHT_SUNDAY_COLOR, highlightSundayColor).apply()
 
     var lastUsedEventSpan: Int
         get() = prefs.getInt(LAST_USED_EVENT_SPAN, YEAR_SECONDS)

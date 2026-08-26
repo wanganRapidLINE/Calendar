@@ -36,6 +36,7 @@ import org.fossify.calendar.extensions.checkViewStrikeThrough
 import org.fossify.calendar.extensions.config
 import org.fossify.calendar.extensions.eventsDB
 import org.fossify.calendar.extensions.eventsHelper
+import org.fossify.calendar.extensions.getWeekendTextColor
 import org.fossify.calendar.extensions.getWeeklyViewItemHeight
 import org.fossify.calendar.extensions.intersects
 import org.fossify.calendar.extensions.seconds
@@ -56,7 +57,6 @@ import org.fossify.calendar.helpers.TYPE_TASK
 import org.fossify.calendar.helpers.WEEK_START_TIMESTAMP
 import org.fossify.calendar.helpers.WeeklyCalendarImpl
 import org.fossify.calendar.helpers.getActivityToOpen
-import org.fossify.calendar.helpers.isWeekend
 import org.fossify.calendar.interfaces.WeekFragmentListener
 import org.fossify.calendar.interfaces.WeeklyCalendar
 import org.fossify.calendar.models.Event
@@ -119,7 +119,6 @@ class WeekFragment : Fragment(), WeeklyCalendar {
     private var wasExtraHeightAdded = false
     private var dimPastEvents = true
     private var dimCompletedTasks = true
-    private var highlightWeekends = false
     private var wasScaled = false
     private var isPrintVersion = false
     private var selectedGrid: View? = null
@@ -150,7 +149,6 @@ class WeekFragment : Fragment(), WeeklyCalendar {
         weekDateTime = Formatter.getDateTimeFromTS(weekTimestamp)
         dimPastEvents = config.dimPastEvents
         dimCompletedTasks = config.dimCompletedTasks
-        highlightWeekends = config.highlightWeekends
         primaryColor = requireContext().getProperPrimaryColor()
         allDayRows.add(HashSet())
     }
@@ -284,9 +282,10 @@ class WeekFragment : Fragment(), WeeklyCalendar {
             val dayLetters = res.getStringArray(labelIDs).toMutableList() as ArrayList<String>
             val dayLetter = dayLetters[curDay.dayOfWeek - 1]
 
+            val weekendTextColor = requireContext().getWeekendTextColor(curDay.dayOfWeek)
             val textColor = when {
                 !isPrintVersion && todayCode == dayCode -> primaryColor
-                highlightWeekends && isWeekend(curDay.dayOfWeek) -> config.highlightWeekendsColor
+                weekendTextColor != null -> weekendTextColor
                 isPrintVersion -> resources.getColor(org.fossify.commons.R.color.theme_light_text_color)
                 else -> requireContext().getProperTextColor()
             }
