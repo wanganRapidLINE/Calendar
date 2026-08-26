@@ -16,6 +16,7 @@ import org.fossify.calendar.databinding.TopNavigationBinding
 import org.fossify.calendar.databinding.WidgetConfigMonthlyBinding
 import org.fossify.calendar.extensions.addDayEvents
 import org.fossify.calendar.extensions.config
+import org.fossify.calendar.extensions.getWeekDayLetters
 import org.fossify.calendar.extensions.getWeekendBackgroundColorByIndex
 import org.fossify.calendar.extensions.getWeekendTextColorByIndex
 import org.fossify.calendar.helpers.MonthlyCalendarImpl
@@ -278,9 +279,11 @@ class WidgetMonthlyConfigureActivity : SimpleActivity(), MonthlyCalendar {
     }
 
     private fun updateLabels() {
+        val letters = getWeekDayLetters()
         binding.configCalendar.firstRow.apply {
             arrayOf(label0, label1, label2, label3, label4, label5, label6).forEachIndexed { index, textView ->
                 textView.setTextColor(getWeekendTextColorByIndex(index) ?: mTextColor)
+                textView.text = letters[index]
             }
         }
     }

@@ -1086,6 +1086,12 @@ fun Context.getWeekendTextColorByIndex(dayIndex: Int) =
 fun Context.getWeekendBackgroundColorByIndex(dayIndex: Int) =
     getWeekendTextColorByIndex(dayIndex)?.adjustAlpha(WEEKEND_BACKGROUND_ALPHA) ?: Color.TRANSPARENT
 
+// the letters as they should read left to right, rotated to wherever the week starts
+fun Context.getWeekDayLetters(): List<String> {
+    val letters = resources.getStringArray(org.fossify.commons.R.array.week_days_short)
+    return (0..6).map { letters[(it + config.firstDayOfWeek - 1) % 7] }
+}
+
 fun Context.isTaskCompleted(event: Event): Boolean {
     if (event.id == null) return false
     val originalEvent = eventsDB.getTaskWithId(event.id!!)
