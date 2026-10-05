@@ -6,18 +6,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Holidays for New Zealand ([#1157])
-- Grid support for monthly calendar widget ([#406])
+- Added holidays for more countries
 
 ### Changed
 - Updated holiday data
 
 ### Fixed
-- Fixed CalDAV sync not consistently working on Android 11+ ([#656])
+- Removed padding around monthly calendar widget ([#63])
+- Fixed clipped text in the event-list widget ([#521])
+
+## [1.11.0] - 2026-09-23
+### Added
+- Holidays for New Zealand ([#1157])
+
+### Changed
+- Updated holiday data
+- Improved holiday management ([#462])
+- Updated current time indicator in weekly view
+- Monthly calendar widgets now respect grid preference ([#406])
+- Updated translations
+
+### Fixed
+- Fixed CalDAV sync on Android 11+ ([#656])
 - Fixed event text readability on colored backgrounds ([#1065])
 - Fixed invisible current time indicator in weekly view ([#99])
-- Fixed stuck zoom level in weekly view on some devices ([#621])
-- Long title, location fields now wrap in task/event editors ([#1177])
+- Fixed stuck zoom level in weekly view ([#621])
+- Fixed multi-day widget event rendering in monthly widget ([#15])
 
 ## [1.10.3] - 2026-02-14
 ### Changed
@@ -211,9 +225,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial release
 
+[#15]: https://github.com/FossifyOrg/Calendar/issues/15
 [#34]: https://github.com/FossifyOrg/Calendar/issues/34
 [#45]: https://github.com/FossifyOrg/Calendar/issues/45
 [#49]: https://github.com/FossifyOrg/Calendar/issues/49
+[#63]: https://github.com/FossifyOrg/Calendar/issues/63
 [#99]: https://github.com/FossifyOrg/Calendar/issues/99
 [#103]: https://github.com/FossifyOrg/Calendar/issues/103
 [#135]: https://github.com/FossifyOrg/Calendar/issues/135
@@ -226,8 +242,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#393]: https://github.com/FossifyOrg/Calendar/issues/393
 [#394]: https://github.com/FossifyOrg/Calendar/issues/394
 [#406]: https://github.com/FossifyOrg/Calendar/issues/406
+[#462]: https://github.com/FossifyOrg/Calendar/issues/462
 [#484]: https://github.com/FossifyOrg/Calendar/issues/484
 [#486]: https://github.com/FossifyOrg/Calendar/issues/486
+[#521]: https://github.com/FossifyOrg/Calendar/issues/521
 [#550]: https://github.com/FossifyOrg/Calendar/issues/550
 [#551]: https://github.com/FossifyOrg/Calendar/issues/551
 [#567]: https://github.com/FossifyOrg/Calendar/issues/567
@@ -256,9 +274,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#1024]: https://github.com/FossifyOrg/Calendar/issues/1024
 [#1065]: https://github.com/FossifyOrg/Calendar/issues/1065
 [#1157]: https://github.com/FossifyOrg/Calendar/issues/1157
-[#1177]: https://github.com/FossifyOrg/Calendar/issues/1177
 
-[Unreleased]: https://github.com/FossifyOrg/Calendar/compare/1.10.3...HEAD
+[Unreleased]: https://github.com/FossifyOrg/Calendar/compare/1.11.0...HEAD
+[1.11.0]: https://github.com/FossifyOrg/Calendar/compare/1.10.3...1.11.0
 [1.10.3]: https://github.com/FossifyOrg/Calendar/compare/1.10.2...1.10.3
 [1.10.2]: https://github.com/FossifyOrg/Calendar/compare/1.10.1...1.10.2
 [1.10.1]: https://github.com/FossifyOrg/Calendar/compare/1.10.0...1.10.1
