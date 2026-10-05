@@ -45,6 +45,7 @@ import org.fossify.calendar.helpers.DISPLAY_DESCRIPTION
 import org.fossify.calendar.helpers.DISPLAY_PAST_EVENTS
 import org.fossify.calendar.helpers.EVENTS_LIST_VIEW
 import org.fossify.calendar.helpers.Formatter
+import org.fossify.calendar.helpers.HIGHLIGHT_HOLIDAYS
 import org.fossify.calendar.helpers.HIGHLIGHT_SATURDAY_COLOR
 import org.fossify.calendar.helpers.HIGHLIGHT_SUNDAY_COLOR
 import org.fossify.calendar.helpers.HIGHLIGHT_WEEKENDS
@@ -192,6 +193,7 @@ class SettingsActivity : SimpleActivity() {
         setupStartWeekOn()
         setupHighlightWeekends()
         setupHighlightWeekendColors()
+        setupHighlightHolidays()
         setupDeleteAllEvents()
         setupDisplayDescription()
         setupReplaceDescription()
@@ -518,6 +520,14 @@ class SettingsActivity : SimpleActivity() {
             settingsHighlightWeekends.toggle()
             config.highlightWeekends = settingsHighlightWeekends.isChecked
             updateWeekendColorPickersVisibility()
+        }
+    }
+
+    private fun setupHighlightHolidays() = binding.apply {
+        settingsHighlightHolidays.isChecked = config.highlightHolidays
+        settingsHighlightHolidaysHolder.setOnClickListener {
+            settingsHighlightHolidays.toggle()
+            config.highlightHolidays = settingsHighlightHolidays.isChecked
         }
     }
 
@@ -1179,6 +1189,7 @@ class SettingsActivity : SimpleActivity() {
                 put(HIGHLIGHT_WEEKENDS, config.highlightWeekends)
                 put(HIGHLIGHT_SATURDAY_COLOR, config.highlightSaturdayColor)
                 put(HIGHLIGHT_SUNDAY_COLOR, config.highlightSundayColor)
+                put(HIGHLIGHT_HOLIDAYS, config.highlightHolidays)
                 put(ALLOW_CREATING_TASKS, config.allowCreatingTasks)
             }
 
@@ -1296,6 +1307,7 @@ class SettingsActivity : SimpleActivity() {
                 HIGHLIGHT_WEEKENDS -> config.highlightWeekends = value.toBoolean()
                 HIGHLIGHT_SATURDAY_COLOR -> config.highlightSaturdayColor = value.toInt()
                 HIGHLIGHT_SUNDAY_COLOR -> config.highlightSundayColor = value.toInt()
+                HIGHLIGHT_HOLIDAYS -> config.highlightHolidays = value.toBoolean()
                 ALLOW_CREATING_TASKS -> config.allowCreatingTasks = value.toBoolean()
             }
         }

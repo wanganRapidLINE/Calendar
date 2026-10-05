@@ -163,6 +163,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
     private var mStoredStartWeekWithCurrentDay = false
     private var mStoredHighlightSaturdayColor = 0
     private var mStoredHighlightSundayColor = 0
+    private var mStoredHighlightHolidays = false
 
     // search results have endless scrolling, so reaching the top/bottom fetches further results
     private var minFetchedSearchTS = 0L
@@ -260,6 +261,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             || mStoredHighlightWeekends != config.highlightWeekends
             || mStoredHighlightSaturdayColor != config.highlightSaturdayColor
             || mStoredHighlightSundayColor != config.highlightSundayColor
+            || mStoredHighlightHolidays != config.highlightHolidays
         ) {
             updateViewPager()
         }
@@ -417,6 +419,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
             mStoredHighlightWeekends = highlightWeekends
             mStoredHighlightSaturdayColor = highlightSaturdayColor
             mStoredHighlightSundayColor = highlightSundayColor
+            mStoredHighlightHolidays = highlightHolidays
             mStoredMidnightSpan = showMidnightSpanningEventsAtTop
             mStoredStartWeekWithCurrentDay = startWeekWithCurrentDay
         }

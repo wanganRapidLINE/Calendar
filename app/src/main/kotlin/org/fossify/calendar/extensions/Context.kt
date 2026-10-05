@@ -54,6 +54,7 @@ import org.fossify.calendar.helpers.FLAG_TASK_COMPLETED
 import org.fossify.calendar.helpers.Formatter
 import org.fossify.calendar.helpers.IS_TASK_COMPLETED
 import org.fossify.calendar.helpers.IcsExporter
+import org.fossify.calendar.helpers.JapaneseHolidays
 import org.fossify.calendar.helpers.MONTH
 import org.fossify.calendar.helpers.MyWidgetDateProvider
 import org.fossify.calendar.helpers.MyWidgetListProvider
@@ -1083,8 +1084,19 @@ fun Context.getWeekendTextColor(dayOfWeek: Int): Int? = when {
 fun Context.getWeekendTextColorByIndex(dayIndex: Int) =
     getWeekendTextColor(getDayOfWeekFromIndex(dayIndex))
 
-fun Context.getWeekendBackgroundColorByIndex(dayIndex: Int) =
-    getWeekendTextColorByIndex(dayIndex)?.adjustAlpha(WEEKEND_BACKGROUND_ALPHA) ?: Color.TRANSPARENT
+// public holidays borrow the Sunday colour, so one picker drives both
+fun Context.getHolidayTextColor(dayCode: String): Int? = when {
+    !config.highlightHolidays -> null
+    JapaneseHolidays.isHoliday(this, dayCode) -> config.highlightSundayColor
+    else -> null
+}
+
+// a holiday outranks the weekday it lands on, so a Saturday holiday reads red rather than blue
+fun Context.getDayTextColor(dayCode: String, dayIndex: Int) =
+    getHolidayTextColor(dayCode) ?: getWeekendTextColorByIndex(dayIndex)
+
+fun Context.getDayBackgroundColor(dayCode: String, dayIndex: Int) =
+    getDayTextColor(dayCode, dayIndex)?.adjustAlpha(WEEKEND_BACKGROUND_ALPHA) ?: Color.TRANSPARENT
 
 // the letters as they should read left to right, rotated to wherever the week starts
 fun Context.getWeekDayLetters(): List<String> {

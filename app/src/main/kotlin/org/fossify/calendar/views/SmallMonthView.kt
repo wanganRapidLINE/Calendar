@@ -7,14 +7,14 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import org.fossify.calendar.R
-import org.fossify.calendar.extensions.config
-import org.fossify.calendar.extensions.getWeekendTextColorByIndex
+import org.fossify.calendar.extensions.getDayTextColor
 import org.fossify.calendar.models.DayYearly
 import org.fossify.commons.extensions.adjustAlpha
 import org.fossify.commons.extensions.getProperPrimaryColor
 import org.fossify.commons.extensions.getProperTextColor
 import org.fossify.commons.helpers.FontHelper
 import org.fossify.commons.helpers.MEDIUM_ALPHA
+import java.util.Locale
 
 // used for displaying months at Yearly view
 class SmallMonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(context, attrs, defStyle) {
@@ -24,12 +24,15 @@ class SmallMonthView(context: Context, attrs: AttributeSet, defStyle: Int) : Vie
     private var textColor = 0
     private var days = 31
     private var isLandscape = false
-    private var highlightWeekends = false
     private var isPrintVersion = false
     private var mEvents: ArrayList<DayYearly>? = null
 
     var firstDay = 0
     var todaysId = 0
+
+    // the yearly view draws bare day numbers, so it has to be told which month it is showing
+    var year = 0
+    var month = 0
 
     constructor(context: Context, attrs: AttributeSet) : this(context, attrs, 0)
 
@@ -58,7 +61,6 @@ class SmallMonthView(context: Context, attrs: AttributeSet, defStyle: Int) : Vie
 
         val baseColor = context.getProperTextColor()
         textColor = baseColor.adjustAlpha(MEDIUM_ALPHA)
-        highlightWeekends = context.config.highlightWeekends
 
         paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = textColor
@@ -90,7 +92,7 @@ class SmallMonthView(context: Context, attrs: AttributeSet, defStyle: Int) : Vie
         for (y in 1..6) {
             for (x in 1..7) {
                 if (curId in 1..days) {
-                    val textPaint = getPaint(curId, x, highlightWeekends)
+                    val textPaint = getPaint(curId, x)
                     val centerX = x * dayWidth - dayWidth / 2
                     val centerY = y * dayWidth - dayWidth / 2
                     val baselineY = centerY - (fm.ascent + fm.descent) / 2
@@ -105,18 +107,19 @@ class SmallMonthView(context: Context, attrs: AttributeSet, defStyle: Int) : Vie
         }
     }
 
-    private fun getPaint(curId: Int, weekDay: Int, highlightWeekends: Boolean): Paint {
+    private fun getPaint(curId: Int, weekDay: Int): Paint {
         val colors = mEvents?.get(curId)?.eventColors ?: HashSet()
         if (colors.isNotEmpty()) {
             val curPaint = Paint(paint)
             curPaint.color = colors.first()
             return curPaint
-        } else if (highlightWeekends) {
-            context.getWeekendTextColorByIndex(weekDay - 1)?.let {
-                val curPaint = Paint(paint)
-                curPaint.color = it.adjustAlpha(MEDIUM_ALPHA)
-                return curPaint
-            }
+        }
+
+        val dayCode = String.format(Locale.US, "%04d%02d%02d", year, month, curId)
+        context.getDayTextColor(dayCode, weekDay - 1)?.let {
+            val curPaint = Paint(paint)
+            curPaint.color = it.adjustAlpha(MEDIUM_ALPHA)
+            return curPaint
         }
 
         return paint

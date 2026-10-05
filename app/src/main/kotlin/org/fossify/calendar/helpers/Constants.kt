@@ -139,8 +139,9 @@ const val HIGHLIGHT_WEEKENDS = "highlight_weekends"
 const val HIGHLIGHT_WEEKENDS_COLOR = "highlight_weekends_color"
 const val HIGHLIGHT_SATURDAY_COLOR = "highlight_saturday_color"
 const val HIGHLIGHT_SUNDAY_COLOR = "highlight_sunday_color"
+const val HIGHLIGHT_HOLIDAYS = "highlight_holidays"
 
-// how much of the weekend colour is left once it is painted behind a whole column
+// how much of the day colour is left once it is painted behind a whole day cell
 const val WEEKEND_BACKGROUND_ALPHA = 0.15f
 const val LAST_USED_EVENT_SPAN = "last_used_event_span"
 const val ALLOW_CREATING_TASKS = "allow_creating_tasks"
