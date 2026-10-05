@@ -654,6 +654,7 @@ class SettingsActivity : SimpleActivity() {
         settingsShowGridHolder.setOnClickListener {
             settingsShowGrid.toggle()
             config.showGrid = settingsShowGrid.isChecked
+            updateWidgets()
         }
     }
 

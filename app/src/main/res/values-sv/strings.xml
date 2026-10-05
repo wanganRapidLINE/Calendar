@@ -35,8 +35,8 @@
     <string name="new_task">Ny uppgift</string>
     <string name="create_new_task">Skapa en ny uppgift</string>
     <string name="duplicate_task">Duplicera uppgift</string>
-    <string name="mark_completed">Markera avklarad</string>
-    <string name="mark_incomplete">Markera ofullständig</string>
+    <string name="mark_completed">Markera som slutförd</string>
+    <string name="mark_incomplete">Markera som ej slutförd</string>
     <string name="task_color">Uppgiftens färg</string>
     <string name="repetition">Upprepning</string>
     <string name="no_repetition">Ingen upprepning</string>
@@ -139,11 +139,8 @@
     <string name="remove_affected_events">Ta bort berörda händelser permanent</string>
     <string name="unsync_caldav_calendar">Du måste sluta synkronisera CalDAV-kalendern innan du kan ta bort den</string>
     <string name="holidays">Helgdagar</string>
-    <string name="add_holidays">Lägg till helgdagar</string>
     <string name="national_holidays">Nationella helgdagar</string>
     <string name="religious_holidays">Religiösa helgdagar</string>
-    <string name="holidays_imported_successfully">Helgdagarna har importerats till kalendern \"Helgdagar\"</string>
-    <string name="importing_some_holidays_failed">Importen av vissa händelser misslyckades</string>
     <string name="importing_holidays_failed">Importen av helgdagarna misslyckades</string>
     <string name="manage_event_types">Hantera kalendrar</string>
     <string name="start_day_at">Dagen börjar</string>
@@ -240,7 +237,7 @@
     <string name="faq_1_text">Helgdagar som skapas på det här sättet läggs till i en ny kalender som heter \"Helgdagar\". Du kan gå till Inställningar -&gt; Hantera kalendrar, trycka länge på den aktuella kalendern och ta bort den genom att välja papperskorgen.</string>
     <string name="faq_2_title">Kan jag synkronisera mina händelser via Google Kalender eller en annan tjänst som stöder CalDAV\?</string>
     <string name="faq_2_title_extra">Kanske även dela kalendrar med andra\?</string>
-    <string name="faq_2_text">Ja, det är bara att slå på \"CalDAV-synkronisering\" i appens inställningar och välja de kalendrar du vill synkronisera. Du behöver dock någon tredjepartsapp som hanterar synkroniseringen mellan enheten och servrarna. Om du vill synkronisera en Google-kalender kan deras officiella kalenderapp göra jobbet. För andra kalendrar behöver du en tredjepartssynkroniseringsadapter, till exempel DAVx5.</string>
+    <string name="faq_2_text">Ja, aktivera bara ”CalDAV-synkronisering” i appens inställningar och välj de kalendrar du vill synkronisera. Du behöver dock en tredjepartsapp som hanterar synkroniseringen mellan enheten och servrarna. Om du vill synkronisera en Google-kalender fungerar deras officiella Kalender-app. För andra kalendrar behöver du en synkroniseringsadapter från tredje part, till exempel DAVx5.</string>
     <string name="faq_3_title">Jag ser de visuella påminnelserna, men hör inget ljud. Vad kan jag göra\?</string>
     <string name="faq_3_text">Inte bara visar den faktiska påminnelsen, men att spela upp ljudet påverkas enormt av systemet också. Om du inte kan höra något ljud kan du prova att gå in i appinställningarna, trycka på alternativet Ljudström som används av påminnelser och ändra det till ett annat värde. Om det fortfarande inte fungerar kontrollerar du ljudinställningarna om den aktuella strömmen inte är avstängd.</string>
     <string name="faq_4_title">Har appen stöd för tidszoner\?</string>
@@ -263,11 +260,13 @@
     <string name="other_holidays">Andra helgdagar och högtider</string>
     <string name="public_holidays">Allmänna helgdagar</string>
     <string name="regional_holidays">Regionala helgdagar</string>
-    <string name="select_holidays_to_import">Välj vilka helgdagar som ska importeras</string>
     <string name="show_widget_header">Visa rubrik</string>
     <string name="access_level_confidential">Konfidentiell</string>
     <string name="access_level_public">Offentlig</string>
     <string name="access_level_private">Privat</string>
     <string name="allow_alarms_reminders">Du måste tillåta att appen schemalägger alarm för att påminnelser ska fungera korrekt.</string>
     <string name="offline_never_synced">Offline (synkroniseras aldrig)</string>
+    <string name="manage_holidays">Hantera helgdagar</string>
+    <string name="holidays_updated">Helgdagarna har uppdaterats</string>
+    <string name="holiday_management_notice">Appen uppdaterar nu helgdagar automatiskt. Välj dina länder på nytt för att aktivera detta. Tidigare importerade helgdagar kan behöva tas bort manuellt.</string>
 </resources>

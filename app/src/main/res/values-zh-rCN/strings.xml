@@ -138,11 +138,8 @@
     <string name="remove_affected_events">永久移除受影响的活动</string>
     <string name="unsync_caldav_calendar">要移除 CalDAV 日历，您必须取消同步</string>
     <string name="holidays">节假日</string>
-    <string name="add_holidays">添加节假日</string>
     <string name="national_holidays">法定节假日</string>
     <string name="religious_holidays">宗教节假日</string>
-    <string name="holidays_imported_successfully">节假日已成功导入“节假日”日历</string>
-    <string name="importing_some_holidays_failed">部分活动导入失败</string>
     <string name="importing_holidays_failed">节假日导入失败</string>
     <string name="manage_event_types">管理日历</string>
     <string name="start_day_at">每日开始于</string>
@@ -245,7 +242,7 @@
     <string name="faq_2_title_extra">或者和其他人分享日历？</string>
     <string name="faq_2_text">是的，只需在应用设置中切换“CalDAV 同步”，然后选择要同步的日历。但是，您需要一些第三方应用来处理设备和服务器之间的同步。如果您想同步 Google 日历，可以使用其官方日历应用。对于其他日历，您需要第三方同步适配器，例如 DAVx5。</string>
     <string name="faq_3_title">我看到了视觉提醒，但听不到音频。我该怎么办？</string>
-    <string name="faq_3_text">不仅是显示实际提醒，播放音频也极大受到系统影响。如果您听不到任何声音，请尝试进入应用设置，点击“提醒使用的音频流”选项，然后改为其他值。如果仍然无效，请检查您的声音设置，以及特定音频流‌是否被静音。</string>
+    <string name="faq_3_text">不仅是显示实际提醒，播放音频也极大受到系统影响。如果您听不到任何声音，请尝试进入应用设置，点击“提醒使用的音频流”选项，然后改为其他值。如果仍然无效，请检查您的声音设置，以及特定音频流是否被静音。</string>
     <string name="faq_4_title">该应用支持时区吗？</string>
     <string name="faq_4_text">是的，它支持。默认所有的活动会在您当前的时区下创建。如果您想要改变活动的时区， 您首先需要在应用程序设定中启用时区选择器，然后在活动详情界面中更改它。这个默认是禁用的因为大多数人都不会用到它。</string>
     <string name="faq_5_title">该应用为何不显示通知？</string>
@@ -258,7 +255,6 @@
     <string name="status_canceled">已取消</string>
     <string name="status_tentative">暂定</string>
     <string name="regional_holidays">国家/地区节假日</string>
-    <string name="select_holidays_to_import">选择要导入的节假日</string>
     <string name="public_holidays">公共节假日</string>
     <string name="other_holidays">其他节假日和节日</string>
     <string name="show_widget_header">显示标题</string>
@@ -267,4 +263,7 @@
     <string name="access_level_public">公开</string>
     <string name="allow_alarms_reminders">您必须允许应用设置闹钟，以便提醒功能正常工作。</string>
     <string name="offline_never_synced">离线（从不同步）</string>
+    <string name="manage_holidays">管理节假日</string>
+    <string name="holidays_updated">已更新节假日</string>
+    <string name="holiday_management_notice">本应用现在自动更新节假日。再次选择你的国家/地区来启用此功能。可能需要手动删除之前导入的节假日。</string>
 </resources>

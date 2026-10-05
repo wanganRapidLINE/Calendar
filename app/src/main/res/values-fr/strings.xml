@@ -138,11 +138,8 @@
     <string name="remove_affected_events">Supprimer définitivement les évènements concernés</string>
     <string name="unsync_caldav_calendar">Pour supprimer un agenda CalDAV, vous devez le désynchroniser</string>
     <string name="holidays">Jours fériés</string>
-    <string name="add_holidays">Ajouter des jours fériés</string>
     <string name="national_holidays">Jours fériés nationaux</string>
     <string name="religious_holidays">Jours fériés religieux</string>
-    <string name="holidays_imported_successfully">Les jours fériés ont été importés avec succès dans le calendrier \"Jours fériés\"</string>
-    <string name="importing_some_holidays_failed">L\'importation de certains évènements a échoué</string>
     <string name="importing_holidays_failed">L\'importation des jours fériés a échoué</string>
     <string name="manage_event_types">Gérer les calendriers</string>
     <string name="start_day_at">Commencer la journée à</string>
@@ -266,11 +263,13 @@
     <string name="other_holidays">Autres jours fériés et commémorations</string>
     <string name="public_holidays">Jours fériés légaux</string>
     <string name="regional_holidays">Vacances régionales</string>
-    <string name="select_holidays_to_import">Sélectionner les vacances à importer</string>
     <string name="show_widget_header">Montrer l\'en-tête</string>
     <string name="access_level_confidential">Confidentiel</string>
     <string name="access_level_public">Public</string>
     <string name="access_level_private">Privé</string>
     <string name="allow_alarms_reminders">Vous devez autoriser l\'application à planifier les alarmes pour les fonctionnement correcte des rappels.</string>
     <string name="offline_never_synced">Hors ligne (jamais synchronisé)</string>
+    <string name="holiday_management_notice">L\'application met désormais à jour automatiquement les jours fériés. Sélectionnez à nouveau vos pays pour activer cette fonctionnalité. Il se peut que vous deviez supprimer manuellement les jours fériés importés précédemment.</string>
+    <string name="manage_holidays">Gérer les jours fériés</string>
+    <string name="holidays_updated">Mise à jour des jours fériés</string>
 </resources>

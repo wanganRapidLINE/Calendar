@@ -10,8 +10,8 @@ In case you just want to for example improve a translation, you can find the way
 ### Contributing holidays
 
 - For most countries, holidays are generated automatically using the [date-holidays](https://github.com/commenthol/date-holidays) library. You can find the list of countries supported by date-holidays [here](https://github.com/commenthol/date-holidays?tab=readme-ov-file#supported-countries-states-regions).
-- The app includes **a different set of countries** compared to date-holidays. For an exhaustive list of countries **_included_ in the app**, check out [holiday generator configuration](https://github.com/FossifyOrg/Calendar/blob/master/.github/workflows/holiday-generator/config.js) file.
-- Contributions are welcome for countries that are not yet supported by date-holidays but _are_ included in the app.
+- The generator includes all countries supported by date-holidays, plus the manually maintained countries in the [holiday generator configuration](https://github.com/FossifyOrg/Calendar/blob/main/scripts/holiday-generator/config.js). The [generated metadata](https://github.com/FossifyOrg/Calendar/blob/main/app/src/main/assets/holidays/metadata.json) lists the countries with holiday files included in the app.
+- Please submit holiday additions and fixes directly to [date-holidays](https://github.com/commenthol/date-holidays) whenever possible, so everyone benefits and less manual maintenance is needed here.
 
 #### Adding holidays
 
@@ -24,7 +24,7 @@ Adding holidays manually is slightly complicated than necessary due to periodic 
   - `public.ics` for public holidays.
   - (optional) `regional.ics` for regional/state-specific holidays (holidays observed in some state/region but not country-wide).
   - (optional) `other.ics` for observances and other non-official holidays.
-- Update [metadata.json](https://github.com/FossifyOrg/Calendar/blob/master/app/src/main/assets/holidays/metadata.json) as per your country code and the corresponding ICS files you have created.
-- Add your country to the list _unsupported_ countries in the [holiday generator configuration](https://github.com/FossifyOrg/Calendar/blob/master/.github/workflows/holiday-generator/config.js#L73) file. This step ensures your holiday files aren't removed by the generator's future updates.
+- Add your country to the list _unsupported_ countries in the [holiday generator configuration](https://github.com/FossifyOrg/Calendar/blob/main/scripts/holiday-generator/config.js) file. This step ensures your holiday files aren't removed by the generator's future updates.
+- After adding or editing holiday files, run `npm ci` and `npm start -- --metadata-only` from `scripts/holiday-generator`. This updates the country list and data version in `metadata.json` without regenerating ICS files, so the app can refresh enabled holidays.
 - Test your changes locally to ensure everything is working as expected.
 - Finally, commit your changes and open a pull request.
