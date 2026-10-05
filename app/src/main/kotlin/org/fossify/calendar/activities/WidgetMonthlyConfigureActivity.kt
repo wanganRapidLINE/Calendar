@@ -16,8 +16,9 @@ import org.fossify.calendar.databinding.TopNavigationBinding
 import org.fossify.calendar.databinding.WidgetConfigMonthlyBinding
 import org.fossify.calendar.extensions.addDayEvents
 import org.fossify.calendar.extensions.config
+import org.fossify.calendar.extensions.getDayBackgroundColor
+import org.fossify.calendar.extensions.getDayTextColor
 import org.fossify.calendar.extensions.getWeekDayLetters
-import org.fossify.calendar.extensions.getWeekendBackgroundColorByIndex
 import org.fossify.calendar.extensions.getWeekendTextColorByIndex
 import org.fossify.calendar.helpers.MonthlyCalendarImpl
 import org.fossify.calendar.helpers.MyWidgetMonthlyProvider
@@ -227,10 +228,10 @@ class WidgetMonthlyConfigureActivity : SimpleActivity(), MonthlyCalendar {
             for (i in 0 until daysLength) {
                 val day = mDays!![i]
                 val dayColumn = i % 7
-                val dayTextColor = getWeekendTextColorByIndex(dayColumn) ?: mTextColor
+                val dayTextColor = getDayTextColor(day.code, dayColumn) ?: mTextColor
 
                 dayViews[i].apply {
-                    setBackgroundColor(getWeekendBackgroundColorByIndex(dayColumn))
+                    setBackgroundColor(getDayBackgroundColor(day.code, dayColumn))
                     removeAllViews()
                     addDayNumber(dayTextColor, day, this)
                     context.addDayEvents(day, this, resources, dividerMargin)

@@ -106,6 +106,8 @@ class YearFragment : Fragment(), YearlyCalendar {
             monthHolder.monthLabel.setTextColor(curTextColor)
             val firstDayOfMonth = dateTime.withMonthOfYear(monthOfYear).withDayOfMonth(1)
             monthView.firstDay = requireContext().getProperDayIndexInWeek(firstDayOfMonth)
+            monthView.year = mYear
+            monthView.month = monthOfYear
             val numberOfDays = dateTime.withMonthOfYear(monthOfYear).dayOfMonth().maximumValue
             monthView.setDays(numberOfDays)
             monthView.setOnClickListener {

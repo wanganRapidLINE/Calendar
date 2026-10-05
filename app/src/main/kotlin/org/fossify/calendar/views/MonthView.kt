@@ -39,7 +39,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
     private var circleStrokePaint: Paint
     private var plusTextPaint: Paint
     private var eventDotPaint: Paint
-    private var weekendBackgroundPaint: Paint
+    private var dayBackgroundPaint: Paint
     private var config = context.config
     private var dayWidth = 0f
     private var dayHeight = 0f
@@ -54,7 +54,6 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
     private var showWeekNumbers = false
     private var dimPastEvents = true
     private var dimCompletedTasks = true
-    private var highlightWeekends = false
     private var isPrintVersion = false
     private var isMonthDayView = false
     private var allEvents = ArrayList<MonthViewEvent>()
@@ -73,7 +72,6 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
         showWeekNumbers = config.showWeekNumbers
         dimPastEvents = config.dimPastEvents
         dimCompletedTasks = config.dimCompletedTasks
-        highlightWeekends = config.highlightWeekends
 
         smallPadding = resources.displayMetrics.density.toInt()
         val normalTextSize = resources.getDimensionPixelSize(org.fossify.commons.R.dimen.normal_text_size)
@@ -87,7 +85,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
         }
 
         eventDotPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        weekendBackgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+        dayBackgroundPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         plusTextPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             color = textColor
             alpha = 175
@@ -177,7 +175,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
         super.onDraw(canvas)
         dayVerticalOffsets.clear()
         measureDaySize(canvas)
-        drawWeekendBackgrounds(canvas)
+        drawDayBackgrounds(canvas)
 
         if (config.showGrid && !isMonthDayView) {
             drawGrid(canvas)
@@ -280,23 +278,25 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
         }
     }
 
-    // tints the Saturday and Sunday columns, leaving the weekday letter row above them untouched
-    private fun drawWeekendBackgrounds(canvas: Canvas) {
-        if (!highlightWeekends || isPrintVersion) {
+    // tints the weekend and public holiday cells, leaving the weekday letter row above them untouched
+    private fun drawDayBackgrounds(canvas: Canvas) {
+        if (isPrintVersion) {
             return
         }
 
-        val top = weekDaysLetterHeight.toFloat()
-        val bottom = top + ROW_COUNT * dayHeight
-        for (i in 0 until COLUMN_COUNT) {
-            val backgroundColor = context.getWeekendBackgroundColorByIndex(i)
-            if (backgroundColor == Color.TRANSPARENT) {
-                continue
-            }
+        for (row in 0 until ROW_COUNT) {
+            for (column in 0 until COLUMN_COUNT) {
+                val day = days.getOrNull(row * COLUMN_COUNT + column) ?: continue
+                val backgroundColor = context.getDayBackgroundColor(day.code, column)
+                if (backgroundColor == Color.TRANSPARENT) {
+                    continue
+                }
 
-            val left = i * dayWidth + horizontalOffset
-            weekendBackgroundPaint.color = backgroundColor
-            canvas.drawRect(left, top, left + dayWidth, bottom, weekendBackgroundPaint)
+                val left = column * dayWidth + horizontalOffset
+                val top = row * dayHeight + weekDaysLetterHeight
+                dayBackgroundPaint.color = backgroundColor
+                canvas.drawRect(left, top, left + dayWidth, top + dayHeight, dayBackgroundPaint)
+            }
         }
     }
 
@@ -416,7 +416,7 @@ class MonthView(context: Context, attrs: AttributeSet, defStyle: Int) : View(con
     private fun getTextPaint(startDay: DayMonthly, dayColumn: Int): Paint {
         var paintColor = when {
             !isPrintVersion && startDay.isToday -> primaryColor.getContrastColor()
-            else -> context.getWeekendTextColorByIndex(dayColumn) ?: textColor
+            else -> context.getDayTextColor(startDay.code, dayColumn) ?: textColor
         }
 
         if (!startDay.isThisMonth) {

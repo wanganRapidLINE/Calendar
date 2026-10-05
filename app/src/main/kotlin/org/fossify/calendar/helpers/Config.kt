@@ -290,6 +290,12 @@ class Config(context: Context) : BaseConfig(context) {
         set(highlightWeekends) = prefs.edit().putBoolean(HIGHLIGHT_WEEKENDS, highlightWeekends)
             .apply()
 
+    var highlightHolidays: Boolean
+        // on by default too - the Japanese public holidays are the other half of this fork
+        get() = prefs.getBoolean(HIGHLIGHT_HOLIDAYS, true)
+        set(highlightHolidays) = prefs.edit().putBoolean(HIGHLIGHT_HOLIDAYS, highlightHolidays)
+            .apply()
+
     var highlightSaturdayColor: Int
         get() = prefs.getInt(
             HIGHLIGHT_SATURDAY_COLOR,

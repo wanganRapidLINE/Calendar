@@ -142,13 +142,13 @@ class MyWidgetMonthlyProvider : AppWidgetProvider() {
         for (i in days.indices) {
             val day = days[i]
             val dayColumn = i % 7
-            val dayTextColor = context.getWeekendTextColorByIndex(dayColumn) ?: textColor
+            val dayTextColor = context.getDayTextColor(day.code, dayColumn) ?: textColor
             val weakTextColor = dayTextColor.adjustAlpha(MEDIUM_ALPHA)
             val currTextColor = if (day.isThisMonth) dayTextColor else weakTextColor
             val id = res.getIdentifier("day_$i", "id", packageName)
             views.removeAllViews(id)
             // set this on every cell, otherwise a tint lingers when the setting is turned off
-            views.setInt(id, "setBackgroundColor", context.getWeekendBackgroundColorByIndex(dayColumn))
+            views.setInt(id, "setBackgroundColor", context.getDayBackgroundColor(day.code, dayColumn))
             addDayNumber(context, views, day, currTextColor, id)
             setupDayOpenIntent(context, views, id, day.code)
 

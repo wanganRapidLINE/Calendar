@@ -36,6 +36,7 @@ import org.fossify.calendar.extensions.checkViewStrikeThrough
 import org.fossify.calendar.extensions.config
 import org.fossify.calendar.extensions.eventsDB
 import org.fossify.calendar.extensions.eventsHelper
+import org.fossify.calendar.extensions.getHolidayTextColor
 import org.fossify.calendar.extensions.getWeekendTextColor
 import org.fossify.calendar.extensions.getWeeklyViewItemHeight
 import org.fossify.calendar.extensions.intersects
@@ -282,10 +283,11 @@ class WeekFragment : Fragment(), WeeklyCalendar {
             val dayLetters = res.getStringArray(labelIDs).toMutableList() as ArrayList<String>
             val dayLetter = dayLetters[curDay.dayOfWeek - 1]
 
-            val weekendTextColor = requireContext().getWeekendTextColor(curDay.dayOfWeek)
+            val dayTextColor = requireContext().getHolidayTextColor(dayCode)
+                ?: requireContext().getWeekendTextColor(curDay.dayOfWeek)
             val textColor = when {
                 !isPrintVersion && todayCode == dayCode -> primaryColor
-                weekendTextColor != null -> weekendTextColor
+                dayTextColor != null -> dayTextColor
                 isPrintVersion -> resources.getColor(org.fossify.commons.R.color.theme_light_text_color)
                 else -> requireContext().getProperTextColor()
             }
