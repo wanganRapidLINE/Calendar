@@ -1,19 +1,26 @@
 > ## About this fork
 >
 > This is a personal fork of [FossifyOrg/Calendar](https://github.com/FossifyOrg/Calendar) that gives
-> Saturday and Sunday the Japanese-calendar treatment: a blue Saturday and a red Sunday, tinted
-> across the whole column rather than only on the day number.
+> the month grid the Japanese-calendar treatment: a blue Saturday, a red Sunday, and the Japanese
+> public holidays coloured like Sundays.
 >
 > ### Changes made in this fork
 >
 > - The single "Color of highlighted weekends" setting is split into **Saturday color** and **Sunday
 >   color**, each with its own colour picker. Existing installs keep their old colour as the Sunday
 >   colour; Saturday defaults to blue.
-> - The monthly view and the monthly widget paint a faint tint (15% of the chosen colour) behind the
->   whole Saturday and Sunday column. The tint is derived from the picked colour rather than
->   hard-coded, so it stays readable in both the light and the dark theme.
-> - The weekly view, the yearly view and the widget configuration preview follow the same
->   per-weekday colours, so nothing is left using a single shared weekend colour.
+> - A **Highlight Japanese public holidays** setting (on by default) colours the national holidays
+>   with the Sunday colour, so one picker drives both. A holiday outranks the weekday it falls on, so
+>   a Saturday holiday reads red rather than blue.
+> - The holiday table lives in `app/src/main/res/raw/japanese_holidays.csv`, generated from the
+>   Cabinet Office's official list by `tools/UpdateJapaneseHolidays.py`. It has to be regenerated once
+>   a year — the equinox holidays only become law in February of the preceding year — and days outside
+>   the table are simply left uncoloured. No network access is added to the app.
+> - The monthly view and the monthly widget paint a faint tint (15% of the chosen colour) behind each
+>   weekend and holiday cell. The tint is derived from the picked colour rather than hard-coded, so it
+>   stays readable in both the light and the dark theme.
+> - The weekly view, the yearly view and the widget configuration preview follow the same colours, so
+>   nothing is left using a single shared weekend colour.
 > - Debug builds are labelled `Calendar (JP)` so the fork can be installed alongside an upstream build.
 >
 > Everything else is unchanged. Like the original, this fork is licensed under the
