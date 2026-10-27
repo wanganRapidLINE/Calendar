@@ -1,5 +1,8 @@
 > ## About this fork
 >
+> **This is an unofficial fork. It is not affiliated with, endorsed by or supported by the Fossify project.**
+> Please do not report issues with this fork to the upstream project.
+>
 > This is a personal fork of [FossifyOrg/Calendar](https://github.com/FossifyOrg/Calendar) that gives
 > the month grid the Japanese-calendar treatment: a blue Saturday, a red Sunday, and the Japanese
 > public holidays coloured like Sundays.
@@ -21,7 +24,12 @@
 >   stays readable in both the light and the dark theme.
 > - The weekly view, the yearly view and the widget configuration preview follow the same colours, so
 >   nothing is left using a single shared weekend colour.
-> - Debug builds are labelled `Calendar (JP)` so the fork can be installed alongside an upstream build.
+> - Debug and release builds are labelled `Calendar (JP)`, and the release build uses the application ID
+> `org.fossify.calendar.jp`, so the fork can be installed alongside an upstream build. The ID sits under
+> the upstream `org.fossify.` prefix only because the bundled Fossify Commons library shows a "fake version"
+> warning for other prefixes. **The fork is for personal use and is not distributed as a signed APK or
+> through any app store.** Build it yourself with `./gradlew assembleFossRelease` and your own signing key
+> (`keystore.properties`, which is git-ignored).
 >
 > Everything else is unchanged. Like the original, this fork is licensed under the
 > [GNU General Public License v3.0](LICENSE).
