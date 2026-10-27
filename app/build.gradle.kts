@@ -31,7 +31,7 @@ android {
     compileSdk = project.libs.versions.app.build.compileSDKVersion.get().toInt()
 
     defaultConfig {
-        applicationId = project.property("APP_ID").toString()
+        applicationId = "org.fossify.calendar.jp" // fork-specific; namespace stays APP_ID
         minSdk = project.libs.versions.app.build.minimumSDK.get().toInt()
         targetSdk = project.libs.versions.app.build.targetSDK.get().toInt()
         versionCode = project.property("VERSION_CODE").toString().toInt()
