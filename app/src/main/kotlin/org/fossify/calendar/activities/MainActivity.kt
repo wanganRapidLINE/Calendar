@@ -333,6 +333,9 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         binding.mainMenu.requireToolbar().menu.apply {
             goToTodayButton = findItem(R.id.go_to_today)
             findItem(R.id.print).isVisible = config.storedView != MONTHLY_DAILY_VIEW
+            findItem(R.id.switch_to_monthly_view).isVisible =
+                config.storedView != MONTHLY_VIEW && config.storedView != MONTHLY_DAILY_VIEW
+                    && !binding.mainMenu.isSearchOpen
             findItem(R.id.filter).isVisible = mShouldFilterBeVisible
             findItem(R.id.go_to_today).isVisible =
                 shouldGoToTodayBeVisible && !binding.mainMenu.isSearchOpen
@@ -359,6 +362,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
 
             when (menuItem.itemId) {
                 R.id.change_view -> showViewDialog()
+                R.id.switch_to_monthly_view -> switchView(MONTHLY_VIEW)
                 R.id.go_to_today -> goToToday()
                 R.id.go_to_date -> showGoToDateDialog()
                 R.id.print -> printView()
@@ -615,12 +619,16 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         )
 
         RadioGroupDialog(activity = this, items = items, checkedItemId = config.storedView) {
-            resetActionBarTitle()
-            closeSearch()
-            updateView(it as Int)
-            shouldGoToTodayBeVisible = false
-            refreshMenuItems()
+            switchView(it as Int)
         }
+    }
+
+    private fun switchView(view: Int) {
+        resetActionBarTitle()
+        closeSearch()
+        updateView(view)
+        shouldGoToTodayBeVisible = false
+        refreshMenuItems()
     }
 
     private fun goToToday() {

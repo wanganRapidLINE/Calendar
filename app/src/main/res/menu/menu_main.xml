@@ -4,6 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="AppCompatResource">
     <item
+        android:id="@+id/switch_to_monthly_view"
+        android:icon="@drawable/ic_view_month_vector"
+        android:title="@string/monthly_view"
+        app:showAsAction="always" />
+    <item
         android:id="@+id/go_to_today"
         android:icon="@drawable/ic_today_vector"
         android:title="@string/go_to_today"
