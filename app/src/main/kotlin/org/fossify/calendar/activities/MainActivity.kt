@@ -175,6 +175,7 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         setContentView(binding.root)
         appLaunched(org.fossify.calendar.BuildConfig.APPLICATION_ID)
         setupOptionsMenu()
+        supportFragmentManager.addOnBackStackChangedListener { refreshMenuItems() }
         refreshMenuItems()
         setupEdgeToEdge(
             padBottomImeAndSystem = listOf(binding.searchHolder, binding.quickCalendarFilter),
@@ -333,8 +334,10 @@ class MainActivity : SimpleActivity(), RefreshRecyclerViewListener {
         binding.mainMenu.requireToolbar().menu.apply {
             goToTodayButton = findItem(R.id.go_to_today)
             findItem(R.id.print).isVisible = config.storedView != MONTHLY_DAILY_VIEW
+            // the yearly view opens a month on top without touching storedView, so ask the fragment
+            val shownView = getCurrentFragment()?.viewType ?: config.storedView
             findItem(R.id.switch_to_monthly_view).isVisible =
-                config.storedView != MONTHLY_VIEW && config.storedView != MONTHLY_DAILY_VIEW
+                shownView != MONTHLY_VIEW && shownView != MONTHLY_DAILY_VIEW
                     && !binding.mainMenu.isSearchOpen
             findItem(R.id.filter).isVisible = mShouldFilterBeVisible
             findItem(R.id.go_to_today).isVisible =
